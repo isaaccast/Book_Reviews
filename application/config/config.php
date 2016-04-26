@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://'.$_SERVER['HTTP_POST'];
+$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ $config['base_url'] = 'http://'.$_SERVER['HTTP_POST'];
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------

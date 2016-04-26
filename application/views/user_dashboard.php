@@ -14,63 +14,95 @@
                 margin: 10px;
                 padding: 5px;
             }
-            p{
-                display: block;
-                margin-bottom: 10px; 
-                width: 503px;
-            }
+          
             a{
                 display: inline-block;
                 margin: 0px;
             }
-            #login{
+            #container{
                 border: 1px solid black; 
             }
-            #review{
-                display: inline-block;
-                width: 300px; 
+            #wish_list{
+                margin-bottom: 150px;   
             }
-            #review p{
+            #app p{
                 margin-left: 35px;  
                 
             }
-            #side_bar{
-                display: inline-block;
-                float: right;
-            }
-            #all_reviews{
-                border: 1px solid black; 
-                width: 190px;
-                height: auto; 
+            #others{
                 display: block;
+               
             }
-            #all_reviews a{
-                display: block;
-                margin: 3px; 
-            }
+           
         </style>
         
     </head>
     <body>
-        <h2>Welcome <?= $this->session->userdata['first_name']?>!</h2><a href="/books/add_page">Add Book and Review</a> <a href="/books/logout">Log Off</a>
-               <div id='recent'>
-            <h3>Recent Book Reviews:</h3>
-            <div id='review'>
-                <?php for ($i=1; $i <4 ; $i++) { ?> 
-                <h4><a href="/books/get_book/<?= $books[count($books)-$i]['book_id'] ?>"><?= $books[count($books)-$i]['title'] ?></a></h4>
-                <p>Rating:</p>
-                <p><a href="/books/show_user/<?= $books[count($books)-$i]['id'] ?>"><?= $books[count($books)-$i]['first_name'] ?></a>says: <?= $books[count($books)-$i]['comment'] ?></p>
-                <p>Posted on:<?= $books[count($books)-$i]['created_at'] ?></p>
-               <?php } ?>
+        <h2>Hello <?= $this->session->userdata['name']?>!</h2> <a href="/apps/logout">Log Off</a>
+        <div id='container'>
+            <div id='wish_list'>
+                <h3>Your Wish List:</h3>
+                 <div id='success'>
+                     <?php 
+                              if($this->session->flashdata("add_success")) 
+                              {
+                                echo $this->session->flashdata("add_success");
+                              }
+                            ?>
+                    </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Item</th>
+                        <th>Added by</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <?php 
+                            if(isset($products)){
+                            foreach ($products as $product) {?>
+                            <tr>
+                                <td><a href="/apps/show/<?= $product['id'] ?>"><?= $product['description'] ?></a></td>
+                                <td><?= $product['added_by'] ?></td>
+                                <td><?= $product['created_at'] ?></td>
+                                <td>
+                                    <?php if($product['added_by'] == $this->session->userdata['name']) {?>
+                                        <a href="/apps/delete_product/<?=$product['id']?>">Delete</a></td>
+                                    <?php }else{ ?>
+                                        <a href="/apps/remove_wish/<?=$this->session->userdata['id']?>/<?=$product['id']?>">Remove from wishlist</a></td>
+                                   <?php } ?>
+                                    
+                            </tr>    
+                            <?php } }
+                         ?>
+                    </tbody>
+                </table> 
             </div>
-            <div id='side_bar'>
-                <h3>Other Books with Reviews:</h3>
-                <div id='all_reviews'>
-                    <?php foreach ($books as $book) {
-                        ?><a href="/books/get_book/<?=$book['book_id']?>"><?=$book['title'] ?></a>
-                   <?php } ?>
-                </div>
+            <div id='others'>
+                <h3>Other User's Wish List:</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <th>Item</th>
+                        <th>Added by</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        <?php 
+                        if(isset($others)){
+                            foreach ($others as $other) {?>
+                            <tr>
+                                <td> <a href="/apps/show/<?= $other['id'] ?>"><?= $other['description'] ?></a></td>
+                                <td><?= $other['added_by'] ?></td>
+                                <td><?= $other['created_at'] ?></td>
+                                <td><a href="/apps/add_wish/<?=$other['id']?>/<?= $other['user_id'] ?>">Add to my wishlist</a></td>
+                            </tr>    
+                            <?php } }
+                         ?>
+                    </tbody>
+                </table> 
             </div>
+            <a href="/apps/add_page">Add Item</a>
         </div>
 
         

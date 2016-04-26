@@ -38,11 +38,12 @@
 |
 */
 
-$route['default_controller'] = "books";
-$route['/books/show_user/(:any)'] = "books/show_user/$1";
-$route['/books/get_book/(:any)'] = "books/get_book/$1"; 
-$route['/books/add_review/(:any)'] = "books/add_review/$1"; 
-$route['/books/remove_review/(:any)/(:any)'] = "books/remove_review/$1/$2"; 
+$route['default_controller'] = "apps";
+$route['/apps/add_item/(:any)'] = "/apps/add_item/$1"; 
+$route['/apps/add_wish/(:any)/(:any)'] = "/apps/add_wish/$1/$2"; 
+$route['/apps/remove_wish/(:any)/(:any)'] = "/apps/remove_wish/$1/$2"; 
+$route['/apps/delete_product/(:any)'] = "/apps/delete_product/$1"; 
+$route['/apps/show/(:any)'] = "/apps/show/$1"; 
 $route['404_override'] = '';
 
 

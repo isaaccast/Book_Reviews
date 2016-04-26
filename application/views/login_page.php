@@ -37,20 +37,21 @@
         
     </head>
     <body>
-        <h2>Student Log In</h2>
+        <h2>Log In</h2>
         <div id = 'login'>
             <h3>Log In</h3>
             
                 <div class='error'>
                    <?php 
+
                       if($this->session->flashdata("login_error")) 
                       {
                         echo $this->session->flashdata("login_error");
                       }
                     ?>
                 </div>
-              <form action="/books/login" method="post">
-                Email: <input type="text" name="email" />
+              <form action="/apps/login" method="post">
+                Username: <input type="text" name="username" />
                 Password: <input type="password" name="password" />
                 <input class ='button' type="submit" value="Login" />
               </form> 
@@ -74,12 +75,12 @@
                       }
                     ?>
                 </div>
-            <form action='/books/register' method='post'>
-                First Name: <input type='text' name='first_name'>
-                Last Name: <input type='text' name='last_name'>
-                Email Address: <input type='text' name='email'>
+            <form action='/apps/register' method='post'>
+                Name: <input type='text' name='name'>
+                Username: <input type='text' name='username'>
                 Password: <input type='password' name='password'>
                 Confirm Password: <input type='password' name='cpassword'>
+                Date Hired: <input type='date' name = 'dated_hired'>
                 <input type='submit' value='Register' class='button'>
             </form>
         </div>
